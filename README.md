@@ -42,3 +42,8 @@ There configuration tags are:
 4. **classReplaceFolder**: the content of this tag will be replaced by the *contextName*.
 5. **contextName**: replaces the content of *classReplaceFolder* in the patch path.
 6. **configPath**: the path of configuration files.
+
+##Contact Info
+*Romanos Trechlis* @r_trechlis
+
+[www.romanostrechlis.com](http://www.romanostrechlis.com)
