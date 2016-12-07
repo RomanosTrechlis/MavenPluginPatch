@@ -35,6 +35,7 @@ In *pom.xml* it should be added the following:
 ```
 
 There configuration portion is:
+
 1. projectBaseDir
 2. patchDir: where the patch folder should be created.
 3. issueFile: what is the file containing info about the patch (see example above).
