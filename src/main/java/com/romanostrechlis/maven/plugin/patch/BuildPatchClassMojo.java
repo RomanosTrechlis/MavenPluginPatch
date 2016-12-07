@@ -33,7 +33,7 @@ public class BuildPatchClassMojo extends AbstractMojo {
   @Parameter(property = "patch.classReplaceFolder")
   private String classReplaceFolder;
   @Parameter(property = "patch.contextName")
-  private String applicationName;
+  private String contextName;
   @Parameter(property = "patch.configPath")
   private String configPath;
 
@@ -100,8 +100,8 @@ public class BuildPatchClassMojo extends AbstractMojo {
         if (f.getName().contains(fileName)) {
           String destPath = new String(folderPath);
           if (destPath.contains("src\\main\\webapp") && StringUtils
-              .isNotEmpty(applicationName)) { // this isn't applicable for other applications
-            destPath = destPath.replace("src\\main\\webapp", applicationName);
+              .isNotEmpty(contextName)) { // this isn't applicable for other applications
+            destPath = destPath.replace("src\\main\\webapp", contextName);
           } else if (destPath.contains("src\\main\\resources") && StringUtils
               .isNotEmpty(configPath)) { // this isn't applicable for other applications
             destPath = destPath.replace("src\\main\\resources", configPath);

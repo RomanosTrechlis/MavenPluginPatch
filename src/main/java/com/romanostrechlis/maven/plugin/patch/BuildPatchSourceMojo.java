@@ -33,7 +33,7 @@ public class BuildPatchSourceMojo extends AbstractMojo {
   @Parameter(property = "patch.classReplaceFolder")
   private String classReplaceFolder;
   @Parameter(property = "patch.contextName")
-  private String applicationName;
+  private String contextName;
   @Parameter(property = "patch.configPath")
   private String configPath;
 
