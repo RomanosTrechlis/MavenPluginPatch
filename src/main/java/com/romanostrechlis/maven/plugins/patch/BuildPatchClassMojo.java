@@ -1,9 +1,9 @@
-package com.romanostrechlis.maven.plugin.patch;
+package com.romanostrechlis.maven.plugins.patch;
 
-import com.romanostrechlis.maven.plugin.patch.model.Issue;
-import com.romanostrechlis.maven.plugin.patch.model.IssueList;
-import com.romanostrechlis.maven.plugin.patch.model.SourceFile;
-import com.romanostrechlis.maven.plugin.patch.util.BuildPatchUtil;
+import com.romanostrechlis.maven.plugins.patch.model.Issue;
+import com.romanostrechlis.maven.plugins.patch.model.IssueList;
+import com.romanostrechlis.maven.plugins.patch.model.SourceFile;
+import com.romanostrechlis.maven.plugins.patch.util.BuildPatchUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

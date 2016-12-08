@@ -7,7 +7,7 @@ It requires the existence of a *build-patch.xml* file in a given path of project
 ```xml
 <issuelist>
   <issue name="ISSUE-4334">
-    <sourcefile filepath="src\main\java\com\romanostrechlis\maven\plugin\patch\BuildPatchClassMojo.java" />
+    <sourcefile filepath="src\main\java\com\romanostrechlis\maven\plugins\patch\BuildPatchClassMojo.java" />
   </issue>
 </issuelist>
 ```
@@ -17,7 +17,7 @@ In *pom.xml* it should be added the following:
 <builds>
   <plugins>
     <plugin>
-      <groupId>com.romanostrechlis.maven.plugin</groupId>
+      <groupId>com.romanostrechlis.maven.plugins</groupId>
       <artifactId>patch</artifactId>
       <version>2.1</version>
       <configuration>

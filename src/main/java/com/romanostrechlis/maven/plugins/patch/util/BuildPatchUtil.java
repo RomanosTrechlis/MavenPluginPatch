@@ -1,4 +1,4 @@
-package com.romanostrechlis.maven.plugin.patch.util;
+package com.romanostrechlis.maven.plugins.patch.util;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;

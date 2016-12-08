@@ -1,4 +1,4 @@
-package com.romanostrechlis.maven.plugin.patch.model;
+package com.romanostrechlis.maven.plugins.patch.model;
 
 import java.util.List;
 
