@@ -82,11 +82,15 @@ public class BuildPatchClassMojo extends AbstractMojo {
     for (SourceFile file : fileList) {
       file.setFilepath(file.getFilepath().replace(".java", ".class"));
       String relativePath = file.getFilepath();
-      String folderPath = relativePath.substring(0, relativePath.lastIndexOf("\\") + 1);
-      String
-          fileName =
-          relativePath.substring(relativePath.lastIndexOf("\\") + 1, relativePath.lastIndexOf("."));
-      folderPath = folderPath.replace("java", classReplaceFolder);
+
+      // get path up to filename
+      String folderPath = relativePath.substring(0, relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1);
+      // get filename without extension
+      String fileName = relativePath.substring(relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1,
+          relativePath.lastIndexOf("."));
+
+      folderPath = folderPath.replace(BuildPatchUtil.DOUBLE_SLASHES + "java" + BuildPatchUtil.DOUBLE_SLASHES,
+          BuildPatchUtil.DOUBLE_SLASHES + classReplaceFolder + BuildPatchUtil.DOUBLE_SLASHES);
       File pathFile = new File(projectBaseDir + folderPath);
       File[] files = pathFile.listFiles();
       if (files == null) {
@@ -110,7 +114,8 @@ public class BuildPatchClassMojo extends AbstractMojo {
           try {
             System.out.println(">>> Copying file " + finalPath + f.getName());
             FileUtils.copyFile(new File(finalPath + f.getName()),
-                new File(patchDir + subFolderName + "\\" + destPath + f.getName()), true);
+                new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASHES + destPath + f.getName()),
+                true);
           } catch (Exception e) {
             System.out.println(">>> Failure!!!");
           }
@@ -126,35 +131,35 @@ public class BuildPatchClassMojo extends AbstractMojo {
                               String patchDir,
                               String classReplaceFolder,
                               String configPath) {
-    if (!projectBaseDir.endsWith("\\")) {
-      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + "\\");
-      this.projectBaseDir = projectBaseDir + "\\";
+    if (!projectBaseDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES);
+      this.projectBaseDir = projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES;
     }
 
-    if (!patchDir.endsWith("\\")) {
-      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + "\\");
-      this.patchDir = patchDir + "\\";
+    if (!patchDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + BuildPatchUtil.DOUBLE_SLASHES);
+      this.patchDir = patchDir + BuildPatchUtil.DOUBLE_SLASHES;
     }
 
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith("\\")) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(0, classReplaceFolder.length() - 1) + "\\");
+          .substring(0, classReplaceFolder.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
       this.classReplaceFolder = classReplaceFolder.substring(0, classReplaceFolder.length() - 1);
     }
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith("\\")) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(1, classReplaceFolder.length()) + "\\");
+          .substring(1, classReplaceFolder.length()) + BuildPatchUtil.DOUBLE_SLASHES);
       this.classReplaceFolder = classReplaceFolder.substring(1, classReplaceFolder.length());
     }
 
-    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith("\\")) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(0, configPath.length() - 1) + "\\");
+          .substring(0, configPath.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
       this.configPath = configPath.substring(0, configPath.length() - 1);
     }
-    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith("\\")) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(1, configPath.length()) + "\\");
+          .substring(1, configPath.length()) + BuildPatchUtil.DOUBLE_SLASHES);
       this.configPath = configPath.substring(1, configPath.length());
     }
     System.out.println("\n");

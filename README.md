@@ -17,9 +17,9 @@ In *pom.xml* it should be added the following:
 <builds>
   <plugins>
     <plugin>
-      <groupId>com.romanostrechlis.maven.plugin</groupId>
+      <groupId>com.romanostrechlis.maven.plugins</groupId>
       <artifactId>patch</artifactId>
-      <version>2.1</version>
+      <version>2.3</version>
       <configuration>
         <projectBaseDir>${project.basedir}</projectBaseDir>
         <patchDir>${patch.path}\patch</patchDir>

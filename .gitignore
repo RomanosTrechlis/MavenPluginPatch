@@ -1,6 +1,6 @@
 # idea files
-.idea/**
 patch.iml
 
 # target folder
-target/**
+.idea/
+target/

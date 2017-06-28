@@ -9,6 +9,8 @@ import java.io.File;
  */
 public class BuildPatchUtil {
 
+  public static String DOUBLE_SLASHES = "\\";
+
   /**
    * JaxB converter from XML to Pojo
    */
