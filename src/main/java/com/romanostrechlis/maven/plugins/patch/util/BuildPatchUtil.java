@@ -9,7 +9,9 @@ import java.io.File;
  */
 public class BuildPatchUtil {
 
-  public static String DOUBLE_SLASHES = "\\";
+  public static String DOUBLE_SLASH = "\\";
+  public static String WEBAPP = "src\\main\\webapp";
+  public static String RESOURCES = "src\\main\\resources";
 
   /**
    * JaxB converter from XML to Pojo

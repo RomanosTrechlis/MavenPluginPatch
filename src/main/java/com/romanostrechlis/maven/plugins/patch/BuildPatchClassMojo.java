@@ -84,13 +84,13 @@ public class BuildPatchClassMojo extends AbstractMojo {
       String relativePath = file.getFilepath();
 
       // get path up to filename
-      String folderPath = relativePath.substring(0, relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1);
+      String folderPath = relativePath.substring(0, relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASH) + 1);
       // get filename without extension
-      String fileName = relativePath.substring(relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1,
+      String fileName = relativePath.substring(relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASH) + 1,
           relativePath.lastIndexOf("."));
 
-      folderPath = folderPath.replace(BuildPatchUtil.DOUBLE_SLASHES + "java" + BuildPatchUtil.DOUBLE_SLASHES,
-          BuildPatchUtil.DOUBLE_SLASHES + classReplaceFolder + BuildPatchUtil.DOUBLE_SLASHES);
+      folderPath = folderPath.replace(BuildPatchUtil.DOUBLE_SLASH + "java" + BuildPatchUtil.DOUBLE_SLASH,
+          BuildPatchUtil.DOUBLE_SLASH + classReplaceFolder + BuildPatchUtil.DOUBLE_SLASH);
       File pathFile = new File(projectBaseDir + folderPath);
       File[] files = pathFile.listFiles();
       if (files == null) {
@@ -103,18 +103,18 @@ public class BuildPatchClassMojo extends AbstractMojo {
         }
         if (f.getName().contains(fileName)) {
           String destPath = new String(folderPath);
-          if (destPath.contains("src\\main\\webapp") && StringUtils
+          if (destPath.contains(BuildPatchUtil.WEBAPP) && StringUtils
               .isNotEmpty(contextName)) { // this isn't applicable for other applications
-            destPath = destPath.replace("src\\main\\webapp", contextName);
-          } else if (destPath.contains("src\\main\\resources") && StringUtils
+            destPath = destPath.replace(BuildPatchUtil.WEBAPP, contextName);
+          } else if (destPath.contains(BuildPatchUtil.RESOURCES) && StringUtils
               .isNotEmpty(configPath)) { // this isn't applicable for other applications
-            destPath = destPath.replace("src\\main\\resources", configPath);
+            destPath = destPath.replace(BuildPatchUtil.RESOURCES, configPath);
           }
           String finalPath = projectBaseDir + folderPath;
           try {
             System.out.println(">>> Copying file " + finalPath + f.getName());
             FileUtils.copyFile(new File(finalPath + f.getName()),
-                new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASHES + destPath + f.getName()),
+                new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASH + destPath + f.getName()),
                 true);
           } catch (Exception e) {
             System.out.println(">>> Failure!!!");
@@ -131,35 +131,35 @@ public class BuildPatchClassMojo extends AbstractMojo {
                               String patchDir,
                               String classReplaceFolder,
                               String configPath) {
-    if (!projectBaseDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
-      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES);
-      this.projectBaseDir = projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES;
+    if (!projectBaseDir.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
+      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + BuildPatchUtil.DOUBLE_SLASH);
+      this.projectBaseDir = projectBaseDir + BuildPatchUtil.DOUBLE_SLASH;
     }
 
-    if (!patchDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
-      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + BuildPatchUtil.DOUBLE_SLASHES);
-      this.patchDir = patchDir + BuildPatchUtil.DOUBLE_SLASHES;
+    if (!patchDir.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
+      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + BuildPatchUtil.DOUBLE_SLASH);
+      this.patchDir = patchDir + BuildPatchUtil.DOUBLE_SLASH;
     }
 
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(0, classReplaceFolder.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(0, classReplaceFolder.length() - 1) + BuildPatchUtil.DOUBLE_SLASH);
       this.classReplaceFolder = classReplaceFolder.substring(0, classReplaceFolder.length() - 1);
     }
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(1, classReplaceFolder.length()) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(1, classReplaceFolder.length()) + BuildPatchUtil.DOUBLE_SLASH);
       this.classReplaceFolder = classReplaceFolder.substring(1, classReplaceFolder.length());
     }
 
-    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(0, configPath.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(0, configPath.length() - 1) + BuildPatchUtil.DOUBLE_SLASH);
       this.configPath = configPath.substring(0, configPath.length() - 1);
     }
-    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(1, configPath.length()) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(1, configPath.length()) + BuildPatchUtil.DOUBLE_SLASH);
       this.configPath = configPath.substring(1, configPath.length());
     }
     System.out.println("\n");

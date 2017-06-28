@@ -84,7 +84,7 @@ public class BuildPatchSourceMojo extends AbstractMojo {
       try {
         System.out.println(">>> Copying file " + projectBaseDir + relativePath);
         FileUtils.copyFile(new File(projectBaseDir + relativePath),
-            new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASHES + relativePath),
+            new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASH + relativePath),
             true);
       } catch (Exception e) {
         System.out.println(">>> Failure!!!");
@@ -99,35 +99,35 @@ public class BuildPatchSourceMojo extends AbstractMojo {
                               String patchDir,
                               String classReplaceFolder,
                               String configPath) {
-    if (!projectBaseDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
-      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES);
-      this.projectBaseDir = projectBaseDir + BuildPatchUtil.DOUBLE_SLASHES;
+    if (!projectBaseDir.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
+      System.out.println(">>> Fixing param: " + projectBaseDir + " to: " + projectBaseDir + BuildPatchUtil.DOUBLE_SLASH);
+      this.projectBaseDir = projectBaseDir + BuildPatchUtil.DOUBLE_SLASH;
     }
 
-    if (!patchDir.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
-      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + BuildPatchUtil.DOUBLE_SLASHES);
-      this.patchDir = patchDir + BuildPatchUtil.DOUBLE_SLASHES;
+    if (!patchDir.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
+      System.out.println(">>> Fixing param: " + patchDir + " to: " + patchDir + BuildPatchUtil.DOUBLE_SLASH);
+      this.patchDir = patchDir + BuildPatchUtil.DOUBLE_SLASH;
     }
 
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(0, classReplaceFolder.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(0, classReplaceFolder.length() - 1) + BuildPatchUtil.DOUBLE_SLASH);
       this.classReplaceFolder = classReplaceFolder.substring(0, classReplaceFolder.length() - 1);
     }
-    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(classReplaceFolder) && classReplaceFolder.startsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + classReplaceFolder + " to: " + classReplaceFolder
-          .substring(1, classReplaceFolder.length()) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(1, classReplaceFolder.length()) + BuildPatchUtil.DOUBLE_SLASH);
       this.classReplaceFolder = classReplaceFolder.substring(1, classReplaceFolder.length());
     }
 
-    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.endsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(0, configPath.length() - 1) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(0, configPath.length() - 1) + BuildPatchUtil.DOUBLE_SLASH);
       this.configPath = configPath.substring(0, configPath.length() - 1);
     }
-    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith(BuildPatchUtil.DOUBLE_SLASHES)) {
+    if (StringUtils.isNotEmpty(configPath) && configPath.startsWith(BuildPatchUtil.DOUBLE_SLASH)) {
       System.out.println(">>> Fixing param: " + configPath + " to: " + configPath
-          .substring(1, configPath.length()) + BuildPatchUtil.DOUBLE_SLASHES);
+          .substring(1, configPath.length()) + BuildPatchUtil.DOUBLE_SLASH);
       this.configPath = configPath.substring(1, configPath.length());
     }
     System.out.println("\n");
