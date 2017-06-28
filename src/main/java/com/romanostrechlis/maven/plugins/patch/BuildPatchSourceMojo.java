@@ -1,9 +1,9 @@
-package com.romanostrechlis.maven.plugin.patch;
+package com.romanostrechlis.maven.plugins.patch;
 
-import com.romanostrechlis.maven.plugin.patch.model.Issue;
-import com.romanostrechlis.maven.plugin.patch.model.IssueList;
-import com.romanostrechlis.maven.plugin.patch.model.SourceFile;
-import com.romanostrechlis.maven.plugin.patch.util.BuildPatchUtil;
+import com.romanostrechlis.maven.plugins.patch.model.Issue;
+import com.romanostrechlis.maven.plugins.patch.model.IssueList;
+import com.romanostrechlis.maven.plugins.patch.model.SourceFile;
+import com.romanostrechlis.maven.plugins.patch.util.BuildPatchUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -18,8 +18,8 @@ import java.util.List;
 /**
  * Created by Romanos on 1/12/2016.
  */
-@Mojo(name = "classes")
-public class BuildPatchClassMojo extends AbstractMojo {
+@Mojo(name = "sources")
+public class BuildPatchSourceMojo extends AbstractMojo {
 
   /**
    * Parameters are set inside the configuration tag in pom.xml build plugins patch section
@@ -66,7 +66,7 @@ public class BuildPatchClassMojo extends AbstractMojo {
           + " [START] ###################################");
       List<SourceFile> fileList = issue.getSrcFiles();
       FileUtils.deleteDirectory(new File(patchDir + issue.getName()));
-      patchClasses(fileList, issue.getName());
+      patchSources(fileList, issue.getName());
       System.out.println("################################### " + issue.getName()
           + " [END] ###################################");
       System.out.println("\n");
@@ -74,52 +74,20 @@ public class BuildPatchClassMojo extends AbstractMojo {
   }
 
   /**
-   * Method copies class files and resources to corresponding
-   * patch folder including files with "$".
+   * Method copies java to corresponding patch folder.
    */
-  private void patchClasses(List<SourceFile> fileList,
+  private void patchSources(List<SourceFile> fileList,
                             String subFolderName) throws Exception {
     for (SourceFile file : fileList) {
-      file.setFilepath(file.getFilepath().replace(".java", ".class"));
       String relativePath = file.getFilepath();
 
-      // get path up to filename
-      String folderPath = relativePath.substring(0, relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1);
-      // get filename without extension
-      String fileName = relativePath.substring(relativePath.lastIndexOf(BuildPatchUtil.DOUBLE_SLASHES) + 1,
-          relativePath.lastIndexOf("."));
-
-      folderPath = folderPath.replace(BuildPatchUtil.DOUBLE_SLASHES + "java" + BuildPatchUtil.DOUBLE_SLASHES,
-          BuildPatchUtil.DOUBLE_SLASHES + classReplaceFolder + BuildPatchUtil.DOUBLE_SLASHES);
-      File pathFile = new File(projectBaseDir + folderPath);
-      File[] files = pathFile.listFiles();
-      if (files == null) {
-        System.out.println(">>> No files found in path: " + projectBaseDir + folderPath);
-        continue;
-      }
-      for (File f : files) {
-        if (f.isDirectory()) {
-          continue;
-        }
-        if (f.getName().contains(fileName)) {
-          String destPath = new String(folderPath);
-          if (destPath.contains("src\\main\\webapp") && StringUtils
-              .isNotEmpty(contextName)) { // this isn't applicable for other applications
-            destPath = destPath.replace("src\\main\\webapp", contextName);
-          } else if (destPath.contains("src\\main\\resources") && StringUtils
-              .isNotEmpty(configPath)) { // this isn't applicable for other applications
-            destPath = destPath.replace("src\\main\\resources", configPath);
-          }
-          String finalPath = projectBaseDir + folderPath;
-          try {
-            System.out.println(">>> Copying file " + finalPath + f.getName());
-            FileUtils.copyFile(new File(finalPath + f.getName()),
-                new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASHES + destPath + f.getName()),
-                true);
-          } catch (Exception e) {
-            System.out.println(">>> Failure!!!");
-          }
-        }
+      try {
+        System.out.println(">>> Copying file " + projectBaseDir + relativePath);
+        FileUtils.copyFile(new File(projectBaseDir + relativePath),
+            new File(patchDir + subFolderName + BuildPatchUtil.DOUBLE_SLASHES + relativePath),
+            true);
+      } catch (Exception e) {
+        System.out.println(">>> Failure!!!");
       }
     }
   }

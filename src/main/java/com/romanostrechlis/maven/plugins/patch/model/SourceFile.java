@@ -1,4 +1,4 @@
-package com.romanostrechlis.maven.plugin.patch.model;
+package com.romanostrechlis.maven.plugins.patch.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
